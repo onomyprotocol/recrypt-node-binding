@@ -1,0 +1,3 @@
+[target.i686-linux-android.node]
+rustc-link-search = ["/home/charles/Projects/HavenCompanion/node_modules/nodejs-mobile-react-native/android/libnode/bin/x86"]
+rustc-link-lib = ["node"]

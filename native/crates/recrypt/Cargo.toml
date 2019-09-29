@@ -1,0 +1,60 @@
+[package]
+name = "recrypt"
+version = "0.8.2"
+authors = ["IronCore Labs <info@ironcorelabs.com>"]
+readme = "README.md"
+license = "AGPL-3.0-only"
+repository = "https://github.com/IronCoreLabs/recrypt-rs"
+documentation = "https://docs.rs/recrypt"
+categories = ["cryptography", "algorithms"]
+keywords = ["cryptography", "proxy-re-encryption", "PRE", "ECC", "transform-encryption"]
+description = "A pure-Rust implementation of Transform Encryption, a Proxy Re-encryption scheme"
+edition = "2018"
+
+[dependencies]
+rand = "~0.6"
+rand_chacha = "~0.1"
+sha2 = "~0.8"
+num-traits = "~0.2"
+lazy_static = "~1.3"
+arrayvec = "~0.4"
+#Disable all features for ed25519 and enable the proper ones down in the [features] section below
+ed25519-dalek = { version="1.0.0-pre.1", default-features = false }
+clear_on_drop = "~0.2"
+gridiron = "^0.6.0"
+quick-error = "~1.2"
+hex="~0.3"
+arrayref = "^0.3.5"
+log = "~0.4"
+
+[profile.dev]
+opt-level = 2 # Build deps with optimization, don't build ourselves with optimization
+debug = true
+
+[profile.test]
+opt-level = 2 # Build deps with optimization, don't build ourselves with optimization
+debug = true
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+
+[dev-dependencies]
+proptest = "~0.9"
+
+criterion = "~0.2"
+
+[features]
+unstable = []
+default = ["ed25519-dalek/std", "ed25519-dalek/u64_backend"]
+wasm = ["ed25519-dalek/std", "ed25519-dalek/u32_backend", "clear_on_drop/no_cc"]
+
+[[bench]]
+name = "api_benchmark"
+harness = false
+
+# disable libtest benches
+# workaround for https://github.com/rust-lang/rust/issues/47241
+[lib]
+bench = false

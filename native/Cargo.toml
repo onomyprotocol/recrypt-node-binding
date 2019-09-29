@@ -1,0 +1,23 @@
+[package]
+name = "recrypt-node-binding"
+version = "0.4.1"
+authors = ["IronCore Labs <code@ironcorelabs.com>"]
+license = "AGPLv3"
+build = "build.rs"
+exclude = ["artifacts.json", "index.node"]
+
+links = "node"
+
+[lib]
+name = "recrypt_node"
+crate-type = ["dylib"]
+
+[build-dependencies]
+neon-build = "0.3.1"
+
+[dependencies]
+recrypt = { path = 'crates/recrypt'}
+neon = { path = '/home/charles/Projects/neon-master' }
+
+[patch.crates-io]
+neon-runtime = { path = '/home/charles/Projects/neon-master/crates/neon-runtime' }
